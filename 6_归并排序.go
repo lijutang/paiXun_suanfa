@@ -45,7 +45,7 @@ func merge_(left []int, right []int) []int {
 	}
 	return result
 }
-
+//------------------------------------------------------------------------------------
 // 自顶向下归并排序，排序范围在 [begin,end) 的数组
 func MergeSort(array []int, begin int, end int) {
 	// 元素数量大于1时才进入递归
