@@ -15,83 +15,47 @@ import "fmt"
 ----------------------------------------------------------------------------------
 */
 
-func selectionSort(list []int) []int {
-	lengh := len(list)
-	for i :=0;i<lengh-1;i++ {
-		min := i
-		for j :=i+1;j<lengh;j++ {
-			if list[min]>list[j] {
-				min = j
+func SelectSortMax(arr[] int ) int {
+	length := len(arr) // 数组长度
+	if length<=1 {
+		return arr[0] //一个元素的数组直接返回
+	} else {
+		max := arr[0]
+		for i := 1 ;i <length;i++ {
+			if arr[i] >max { //任何以比我大的数，是最大值
+				max = arr[i]
 			}
 		}
-		list[i],list[min] = list[min],list[i]
+		return max
 	}
-	return list
 }
 
-//--------------------------------------------------------------------------------
-func selectionSort1(list []int) []int {
-	n := len(list)
-	//进行N-1轮迭代
-	for i:=0;i<n-1;i++ {
-		//每次从第ｉ位开始，找到最小的元素
-		min := list[i] //最小数
-		minIndex := i //最小的下标
-		for j:=i+1;j<n;j++ {
-			if  list[j]<min {
-				// 如果找到的数比上次的还小，那么最小的数变为它
-				min = list[j]
-				minIndex = j
+func SelectSort(arr[] int ) []int {
+	length := len(arr) // 数组长度
+	if length<=1 {
+		return arr //一个元素的数组直接返回
+	} else {
+		for i := 0 ;i<length-1 ;i++ {// 进行 N-1 轮迭代(只剩一个元素的时候不需要挑选)
+			// 每次从第 i 位开始，找到最小的元素
+			min :=i //标记索引
+			for j:= i+1;j<length;j++ { // 每次选出一个极小值
+				if arr[min]>arr[j] {
+					min = j  //保存极小值的索引
+				}
+			}
+			if i != min {
+				arr[i],arr[min] = arr[min],arr[i] // 数据交换
 			}
 		}
-		// 这一轮找到的最小数的下标不等于最开始的下标，交换元素
-		if i != minIndex {
-			list[i], list[minIndex] = list[minIndex], list[i]
-		}
+		return arr
+	}
 
-	}
-	return list
+
 }
-//---------------------------------------------------------------------------------
-func selectionSort2(list []int)   []int{
-	n := len(list)
-	// 只需循环一半
-	for i := 0; i < n/2; i++ {
-		minIndex := i // 最小值下标
-		maxIndex := i // 最大值下标
-		// 在这一轮迭代中要找到最大值和最小值的下标
-		for j := i + 1; j < n-i; j++ {
-			// 找到最大值下标
-			if list[j] > list[maxIndex] {
-				maxIndex = j // 这一轮这个是大的，直接 continue
-				continue
-			}
-			// 找到最小值下标
-			if list[j] < list[minIndex] {
-				minIndex = j
-			}
-		}
-		if maxIndex == i && minIndex != n-i-1 {
-			// 如果最大值是开头的元素，而最小值不是最尾的元素
-			// 先将最大值和最尾的元素交换
-			list[n-i-1], list[maxIndex] = list[maxIndex], list[n-i-1]
-			// 然后最小的元素放在最开头
-			list[i], list[minIndex] = list[minIndex], list[i]
-		} else if maxIndex == i && minIndex == n-i-1 {
-			// 如果最大值在开头，最小值在结尾，直接交换
-			list[minIndex], list[maxIndex] = list[maxIndex], list[minIndex]
-		} else {
-			// 否则先将最小值放在开头，再将最大值放在结尾
-			list[i], list[minIndex] = list[minIndex], list[i]
-			list[n-i-1], list[maxIndex] = list[maxIndex], list[n-i-1]
-		}
-	}
-	return list
-}
+
 func main() {
 	array := []int{10,60,30,100,50}
-	//arr := selectionSort(array)
-	//arr := selectionSort1(array)
-	arr := selectionSort2(array)
+	arr := SelectSort(array)
+
 	fmt.Println(arr)
 }

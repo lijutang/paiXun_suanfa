@@ -19,20 +19,19 @@ import "fmt"
 */
 
 
-func insertionSort(list []int) []int {
-	for i := range list {
-		preIndex:= i-1
-		current := list[i]
-		for preIndex >=0 && list[preIndex]>current{
-			list[preIndex+1] = list[preIndex]
-			preIndex -= 1
-		}
-		list[preIndex+1] = current
+func insertTest(arr[] int ) []int {
+	backup := arr[2]
+	j := 2-1 //上个位置循环找到位置插入
+	for j >=0 && backup<arr[j]{
+		arr[j+1] =arr[j]  //从前往后移
+		j--
 	}
-	return list
+	arr[j+1] = backup
+	return arr
 }
+
 //------------------------------------------------------------------------------------
-func insertionSort1(list []int) []int{
+func insertionSort(list []int) []int{
 	n := len(list)
 	// 进行 N-1 轮迭代
 	for i := 1; i <= n-1; i++ {
@@ -52,7 +51,7 @@ func insertionSort1(list []int) []int{
 //------------------------------------------------------------------------------------
 func main() {
 	array := []int{10,60,30,100,50}
-	//arr := insertionSort(array)
-	arr := insertionSort1(array)
+	fmt.Println(insertTest(array))
+	arr := insertionSort(array)
 	fmt.Println(arr)
 }

@@ -23,6 +23,22 @@ func BubbleSort(list [5]int) [5]int {
 	}
 	return list
 }
+func BubbleFindMax(array []int) int {
+	length := len(array)
+	if length <1 {
+		return array[0]
+	} else {
+		for i := 0 ;i<length-1;i++ {
+			if array[i]>array[i+1] {
+				array[i],array[i+1]= array[i+1],array[i]
+			}
+		}
+		return array[length-1]
+	}
+}
+
+
+
 
 /*优化：
 	针对问题：
@@ -32,52 +48,34 @@ func BubbleSort(list [5]int) [5]int {
 	这样当一轮比较结束后如果flag仍为false，即：这一轮没有发生交换，说明数据的顺序已经排好，没有必要继续进行下去。
 ---------------------------------------------------------------------------------------
 */
-
-func BubbleSort1(list [5]int) [5]int {
-	n :=len(list)
-	//在一轮中有没有交换过
-	didSwap := false
-	for i :=n-1;i>0;i-- {
-		// 每次从第一位开始比较，比较到第 i 位就不比较了，因为前一轮该位已经有序了
-		for j :=0;j<i;j++ {
-			// 如果前面的数比后面的大，那么交换
-			if list[j]>list[j+1] {
-				list[j],list[j+1] = list[j+1],list[j]
-				didSwap = true
+func BubbleSort1(array []int) []int {
+	length := len(array)
+	if length <1 {
+		return array
+	} else {
+		for i:=0;i<length-1;i++ {
+			isFolse := false
+			for j:=0;j<length-i-1;j++ {
+				if array[j]>array[j+1] {
+					array[j],array[j+1] = array[j+1],array[j]
+					isFolse = true
+				}
 			}
+			if !isFolse {
+				break
+			}
+			//fmt.Println(array)
 		}
-		// 如果在一轮中没有交换过，那么已经排好序了，直接返回
-		if !didSwap {
-			return list
-		}
+		return array
 	}
-	return list
 }
 
-func BubbleSort2(list [5]int) [5]int {
-	tmp := 0
-	for i := 0; i < len(list); i++ {
-		isSorted := true
-		for j := 0; j < len(list)-1; j++ {
-			if list[j] > list[j+1] {
-				tmp = list[j]
-				list[j] = list[j+1]
-				list[j+1] = tmp
-				isSorted = false
-			}
-		}
-		if isSorted {
-			break
-		}
-	}
-	return list
-}
 
 
 func main() {
-	array := [5]int{10,60,30,100,50}
+	array := []int{10,60,30,100,50}
 	//arr := BubbleSort(array)
-	//arr := BubbleSort1(array)
-	arr := BubbleSort2(array)
+	arr := BubbleSort1(array)
+
 	fmt.Println(arr)
 }
