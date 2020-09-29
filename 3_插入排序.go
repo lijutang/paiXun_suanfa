@@ -26,7 +26,7 @@ func insertTest(arr[] int ) []int {
 		arr[j+1] =arr[j]  //从前往后移
 		j--
 	}
-	arr[j+1] = backup
+	arr[j+1] = backup// 	插入
 	return arr
 }
 
